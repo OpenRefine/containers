@@ -1,0 +1,13 @@
+version: "3.4"
+services:
+  openrefine:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        VERSION: master
+    environment:
+      REFINE_MEMORY: 2000M
+      REFINE_MIN_MEMORY: 2000M
+    ports:
+    - 3333:3333
