@@ -1,7 +1,6 @@
-FROM registry.opensuse.org/opensuse/git:latest AS sources
+FROM scratch AS sources
 ARG VERSION=master
-WORKDIR /opt/openrefine
-RUN git clone https://github.com/OpenRefine/OpenRefine.git --depth 1 --branch $VERSION .
+ADD https://github.com/OpenRefine/OpenRefine.git#$VERSION /opt/openrefine
 
 FROM registry.opensuse.org/opensuse/bci/openjdk-devel:latest AS backend
 WORKDIR /opt/openrefine

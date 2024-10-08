@@ -1,4 +1,3 @@
-version: "3.4"
 services:
   openrefine:
     build:
@@ -9,5 +8,20 @@ services:
     environment:
       REFINE_MEMORY: 2000M
       REFINE_MIN_MEMORY: 2000M
+    image: ghcr.io/ninanor/openrefine:master
+    networks:
+      default: null
     ports:
-    - 3333:3333
+    - mode: ingress
+      target: 3333
+      published: 3333
+      protocol: tcp
+    volumes:
+    - type: bind
+      source: ./workspace
+      target: /workspace
+      bind:
+        create_host_path: true
+networks:
+  default:
+    name: openrefine_default
