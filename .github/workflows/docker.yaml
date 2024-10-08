@@ -20,10 +20,9 @@ jobs:
       matrix:
         include:
           - version: "master"
-          - version: "4.0"
-          - version: "3.7"
-          - version: "3.7.5"
-          - version: "3.6.2"
+          - version: "3.8"
+          - version: "3.8.2"
+
     permissions:
       contents: read
       packages: write
