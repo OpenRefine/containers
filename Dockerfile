@@ -15,9 +15,7 @@ RUN --mount=type=cache,target=/root/.npm \
     npm install
 
 FROM registry.opensuse.org/opensuse/bci/openjdk:21
-# which is needed as command by old versions:
-# - https://github.com/OpenRefine/OpenRefine/pull/5332
-RUN zypper --non-interactive install gettext-tools which
+RUN zypper --non-interactive install gettext-tools
 WORKDIR /opt/openrefine
 COPY --from=backend /opt/openrefine/server server/
 COPY --from=backend /opt/openrefine/main main/
