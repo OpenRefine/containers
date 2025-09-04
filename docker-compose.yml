@@ -1,5 +1,6 @@
 services:
   openrefine:
+    image: ghcr.io/openrefine/containers:master
     build:
       context: .
       dockerfile: Dockerfile
@@ -8,7 +9,6 @@ services:
     environment:
       REFINE_MEMORY: 2000M
       REFINE_MIN_MEMORY: 2000M
-    image: ghcr.io/ninanor/openrefine:master
     networks:
       default: null
     ports:
