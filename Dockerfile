@@ -15,7 +15,9 @@ RUN --mount=type=cache,target=/root/.npm \
     npm install
 
 FROM registry.opensuse.org/opensuse/bci/openjdk:21
-RUN zypper --non-interactive install gettext-tools
+RUN --mount=type=cache,id=zypper-cache,target=/var/cache/zypper \
+    --mount=type=cache,id=zypper-lib,target=/var/lib/zypper \
+    zypper --non-interactive install gettext-tools
 WORKDIR /opt/openrefine
 COPY --from=backend /opt/openrefine/server server/
 COPY --from=backend /opt/openrefine/main main/
