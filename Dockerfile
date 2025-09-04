@@ -2,19 +2,19 @@ FROM scratch AS sources
 ARG VERSION=master
 ADD https://github.com/OpenRefine/OpenRefine.git#$VERSION /opt/openrefine
 
-FROM registry.opensuse.org/opensuse/bci/openjdk-devel:latest AS backend
+FROM registry.opensuse.org/opensuse/bci/openjdk-devel:21 AS backend
 WORKDIR /opt/openrefine
 COPY --from=sources /opt/openrefine .
 RUN --mount=type=cache,target=/root/.m2 \
     mvn -B process-resources compile test-compile
 
-FROM registry.opensuse.org/opensuse/bci/nodejs:latest AS frontend
+FROM registry.opensuse.org/opensuse/bci/nodejs:22 AS frontend
 WORKDIR /opt/openrefine/main/webapp
 COPY --from=sources /opt/openrefine/main/webapp .
 RUN --mount=type=cache,target=/root/.npm \
     npm install
 
-FROM registry.opensuse.org/opensuse/bci/openjdk:latest
+FROM registry.opensuse.org/opensuse/bci/openjdk:21
 # which is needed as command by old versions:
 # - https://github.com/OpenRefine/OpenRefine/pull/5332
 RUN zypper --non-interactive install gettext-tools which
