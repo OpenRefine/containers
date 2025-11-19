@@ -28,6 +28,7 @@ COPY entrypoint.sh refine.ini.template ./
 EXPOSE 3333/TCP
 ENV REFINE_MEMORY=1400M
 ENV REFINE_MIN_MEMORY=1400M
+ENV LANG=en_US.UTF-8
 
 HEALTHCHECK --start-period=10s CMD curl -sSf -o /dev/null http://localhost:3333
 
